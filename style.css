@@ -14,7 +14,6 @@ img {
             font-weight: 800;
             color: #fff;
             text-align: center;
-            animation: glow 2s ease-in-out infinite alternate;
             letter-spacing: 0.05em;
             line-height: 1.1;
 }
