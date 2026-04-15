@@ -9,7 +9,7 @@ img {
  position:fixed;
  max-width: fit-content;    
  max-height: fit-content;
-
+ transform: translate(-50%, -50%);
 }
         * {
             margin: 0;
