@@ -360,3 +360,37 @@ if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js');
     });
 }
+        // ✅ DETECT TOUCH DEVICE
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Tạo bóng bay trái tim
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * (window.innerWidth - 60) + 'px';
+            balloon.style.animation = `floatUp ${4 + Math.random() * 3}s linear infinite`;
+            balloon.style.animationDelay = `${Math.random() * 3}s`;
+            
+            // SVG Heart Balloon
+            balloon.innerHTML = `
+                <svg viewBox="0 0 100 120" class="balloon-img" style="width:100%;height:100%;">
+                    <path d="M50 20 C35 5, 20 20, 25 40 C20 60, 30 80, 50 95 C70 80, 80 60, 75 40 C80 20, 65 5, 50 20 Z" 
+                          fill="${['#ff6b6b', '#ff8e8e', '#ff6b9d', '#c44569', '#ff1493'][Math.floor(Math.random()*5)]}" 
+                          stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M50 20 C60 10, 75 20, 70 40 C75 55, 65 70, 50 85 C35 70, 25 55, 30 40 C25 20, 40 10, 50 20 Z" 
+                          fill="${['#ff6b6b', '#ff8e8e', '#ff6b9d', '#c44569', '#ff1493'][Math.floor(Math.random()*5)]}" 
+                          stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                    <line x1="50" y1="95" x2="50" y2="115" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            `;
+            
+            balloon.addEventListener('click', explodeBalloon);
+            if (isTouchDevice) {
+                balloon.addEventListener('touchstart', explodeBalloon, { passive: true });
+            }
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                if (balloon.parentNode) balloon.remove();
+            }, 9000);
+        }
